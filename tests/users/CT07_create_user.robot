@@ -7,7 +7,7 @@ Resource        ../../resources/common_keywords.robot  # Importa as keywords com
 *** Variables ***
 ${base_url}     https://quality-eagles.qacoders.dev.br/api
 ${endpoint}     /user/
-${mensagem_erro_email_vazio}
+${mensagem_erro_email_invalido}
 
 *** Test Cases ***
 Criar Usuário com Email Vazio

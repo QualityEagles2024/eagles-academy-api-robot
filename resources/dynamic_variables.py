@@ -28,19 +28,29 @@ def generate_empty_string():
     """Retorna uma string vazia, que pode ser usada para testar campos obrigatórios."""
     return ""
 
-def generate_user_data(full_name_empty=False, lowercase_name=False, invalid_email=False, custom_email=None, invalid_password=False):
-    """Gera dados dinâmicos para um novo usuário, permitindo personalizar campos como nome completo, email e senha."""
+def generate_user_data(full_name_empty=False, special_char_in_name=False, **kwargs):
+    """Gera dados dinâmicos para um novo usuário."""
     # Gera nome completo de acordo com os parâmetros
     if full_name_empty:
         full_name = ""
-    elif lowercase_name:
-        first_name = fake.first_name().lower()
-        last_name = fake.last_name().lower()
+    elif special_char_in_name:
+        # Gera um nome com caracteres especiais
+        first_name = fake.first_name() + random.choice("!@#$%&*")
+        last_name = fake.last_name() + random.choice("!@#$%&*")
         full_name = f"{first_name} {last_name}"
     else:
         first_name = fake.first_name()
         last_name = fake.last_name()
         full_name = f"{first_name} {last_name}"
+
+    # Outras gerações de dados permanecem as mesmas...
+    return {
+        "fullName": full_name,
+        "email": kwargs.get("custom_email", fake.email()),
+        "cpf": fake.cpf().replace('.', '').replace('-', ''),
+        "password": generate_password(),
+        "confirmPassword": generate_password(),
+    }
 
     # Gera um email inválido, se especificado
     if invalid_email:

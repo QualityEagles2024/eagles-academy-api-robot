@@ -8,7 +8,7 @@ Resource        ../../resources/common_keywords.robot  # Importa as keywords com
 *** Variables ***
 ${base_url}     https://quality-eagles.qacoders.dev.br/api
 ${endpoint}     /user/
-${mensagem_erro_iniciais}    Informe o nome e sobrenome com as iniciais em letra maiúscula e sem caracteres especiais.
+${mensagem_erro_caracteres_especiais}    Informe o nome e sobrenome com as iniciais em letra maiúscula e sem caracteres especiais.
 
 
 *** Test Cases ***
@@ -38,7 +38,7 @@ Criar Novo Usuario Com Nome Caracteres Especiais
     ${error_msg}=  Get From Dictionary    ${response_body}    error
 
     # Valida que a mensagem de erro contém o texto esperado
-    Should Be Equal As Strings    ${error_msg[0]}    ${mensagem_erro_iniciais}
+    Should Be Equal As Strings    ${error_msg[0]}    ${mensagem_erro_caracteres_especiais}
 
     # Loga a mensagem de erro para depuração
     Log To Console    Erro retornado: ${error_msg[0]}
