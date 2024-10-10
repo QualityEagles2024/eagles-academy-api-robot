@@ -1,8 +1,8 @@
 *** Settings ***
 Library         RequestsLibrary
 Library         Collections
-Library         /resources/dynamic_variables.py  # Importa o arquivo Python para gerar dados dinâmicos
-Resource        /resources/common_keywords.robot  # Importa as keywords comuns
+Library         resources/dynamic_variables.py  # Importa o arquivo Python para gerar dados dinâmicos
+Resource        resources/common_keywords.robot  # Importa as keywords comuns
 
 *** Variables ***
 ${base_url}     https://quality-eagles.qacoders.dev.br/api
