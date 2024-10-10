@@ -1,5 +1,10 @@
 name: Academy API Robot
-on: push
+
+on:
+  push:
+    branches:
+      - main # A pipeline será acionada quando houver push na branch 'main'
+
 jobs:
   test:
     name: Testes de API
@@ -10,43 +15,38 @@ jobs:
       id-token: write
     environment:
       name: github-pages
-      url: https://AndersonFranc.github.io/chips-academy-api-robot/report.html
+      url: https://github.com/QualityEagles2024/eagles-academy-api-robot.git
+
     steps:
-      - name: clonando para o repositorio na maquina virtual
-        # run: echo clonando para o repositorio na maquina virtual
+      - name: Checkout do repositório
         uses: actions/checkout@v4
 
-      - name: Instalação da versão 3.12 do Python
-        # run: echo Instalação da versão 3.12 do Python
+      - name: Configurar Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Instalação das depedências do Projeto
-        # run: echo Instalação das depedências do Projeto
+      - name: Instalação das dependências do Projeto
         run: |
-          pip install robotframework
-          pip install robotframework-requests
+          pip install -r requirements.txt
 
-      - name: Executando os testes de API do Robot
-        # run: echo Executando os testes de API do Robot
+      - name: Executando os testes de API do Robot Framework
         run: |
           robot --outputdir results/ tests/
-      - name: Salvando o Report dos Testes
-        # run: echo Salvando o Report dos Testes
+
+      - name: Upload dos relatórios dos Testes
         uses: actions/upload-artifact@v4
         with:
           name: robot-framework-report
           path: results/
 
-      - name: Setup Pages
+      - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload artifact
+      - name: Upload do relatório para GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: results/
 
-      - name: Deploy to Github Pages
-        id: deployment
+      - name: Deploy para GitHub Pages
         uses: actions/deploy-pages@v4
