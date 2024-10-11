@@ -8,6 +8,9 @@ jobs:
       contents: read
       pages: write
       id-token: write
+    environment:
+      name: github-pages
+      url: https://github.com/QualityEagles2024/eagles-academy-api-robot.git
     steps:
       - name: Clonando para o repositório na máquina virtual
         uses: actions/checkout@v4
@@ -36,7 +39,7 @@ jobs:
       - name: Salvar o Report dos Testes
         uses: actions/upload-artifact@v4
         with:
-          name: robot-framework-test-report
+          name: robot-framework-report
           path: results/
 
       - name: Setup Pages
@@ -44,14 +47,14 @@ jobs:
         with:
           enablement: true
 
+      - name: Esperar alguns segundos antes do upload
+        run: sleep 10
+
       - name: Upload artifact para GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: results/
-          name: github-pages-results
 
       - name: Deploy to Github Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          artifact-name: github-pages-results
