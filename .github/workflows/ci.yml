@@ -41,11 +41,10 @@ jobs:
         with:
           name: github-pages
           path: results/
+          overwrite: true
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Upload artifact para GitHub Pages
         uses: actions/upload-pages-artifact@v3
@@ -54,4 +53,5 @@ jobs:
           name: github-pages
 
       - name: Deploy to Github Pages
+        id: deployment
         uses: actions/deploy-pages@v4
