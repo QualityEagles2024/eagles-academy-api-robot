@@ -41,6 +41,7 @@ jobs:
         with:
           name: github-pages-${{ github.run_number }}-${{ github.run_id }} # Nome único para o artefato
           path: results/
+          if-no-files-found: warn # Prevenir erro caso o artefato já exista
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
