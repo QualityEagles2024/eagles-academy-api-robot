@@ -39,9 +39,8 @@ jobs:
       - name: Salvar o Report dos Testes
         uses: actions/upload-artifact@v4
         with:
-          name: github-pages-${{ github.run_id }} # Ensure unique artifact name
+          name: github-pages-${{ github.run_number }}-${{ github.run_id }} # Nome único para o artefato
           path: results/
-          overwrite: true
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -50,10 +49,10 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: results/
-          name: github-pages-${{ github.run_id }} # Refer to the unique artifact name
+          name: github-pages-${{ github.run_number }}-${{ github.run_id }} # Nome único para garantir que seja o mesmo
 
       - name: Deploy to Github Pages
         id: deployment
         uses: actions/deploy-pages@v4
         with:
-          artifact_name: github-pages-${{ github.run_id }} # Use the unique artifact
+          artifact_name: github-pages-${{ github.run_number }}-${{ github.run_id }} # Garantindo o uso do mesmo nome do artefato
