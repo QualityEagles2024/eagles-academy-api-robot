@@ -39,7 +39,7 @@ jobs:
       - name: Salvar o Report dos Testes
         uses: actions/upload-artifact@v4
         with:
-          name: github-pages
+          name: github-pages-${{ github.run_id }} # Ensure unique artifact name
           path: results/
           overwrite: true
 
@@ -50,8 +50,10 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: results/
-          name: github-pages
+          name: github-pages-${{ github.run_id }} # Refer to the unique artifact name
 
       - name: Deploy to Github Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact-name: github-pages-${{ github.run_id }} # Use the unique artifact
